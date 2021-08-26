@@ -14,6 +14,7 @@ const ukrainian = {
       errRequired: "це обов'язкове поле",
       errPasswordMin: "довжина паролю - не менше 8 символів",
       errPasswordMatches: "пароль повинен містити цифру",
+      errEmailMatches: "невірний формат",
       title: "Виконуй завдання, отримай класні призи!",
       authForm: {
         authGoogleText: "Ви можете авторизуватися за допомогою Google Account:",

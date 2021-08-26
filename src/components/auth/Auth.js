@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCurrentUserOperation, login, register } from "../../redux/auth/authOperations";
@@ -11,20 +10,7 @@ import Footer from "../footer/Footer";
 import { LanguageContext } from "../App";
 import languages from "../../languages";
 import { buttonLangSelector } from "../../languages/languagesSelectors/AuthLangSelector";
-
-const validationSchema = Yup.object(
-  //  { language } = useContext(LanguageContext)
-  {
-    email: Yup.string()
-      // .required({languages[language].pages.authPage.errRequired})
-      .required("це обовязкове поле")
-      .matches(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/, "неверный формат"),
-    password: Yup.string()
-      .required("{languages[language].pages.authPage.errRequired}")
-      .min(8, "длина пароля - не менее 8 символов")
-      .matches(/(?=.*[0-9])/, "пароль должен содержать цифру"),
-  }
-);
+import { validationSchema } from "./Validator";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -67,7 +53,9 @@ const Auth = () => {
                 placeholder="your@email.com"
                 className="user-input"
               />
-              {errors.email && touched.email && <p className="accent-red">{errors.email}</p>}
+              {errors.email && touched.email && (
+                <p className="accent-red">{languages[language].pages.authPage[errors.email]}</p>
+              )}
               <label className="user-label" htmlFor="password">
                 <span className="accent-red">*</span>
                 {languages[language].pages.authPage.authForm.password}
@@ -81,7 +69,9 @@ const Auth = () => {
                 placeholder="abraKadabra777"
                 className="user-input"
               />
-              {errors.password && touched.password && <p className="accent-red">{errors.password}</p>}
+              {errors.password && touched.password && (
+                <p className="accent-red">{languages[language].pages.authPage[errors.password]}</p>
+              )}
 
               <div className="auth-btn-wrap">
                 <button className="user-button" type="button" onClick={() => dispatch(login(values))}>

@@ -14,6 +14,7 @@ const russian = {
       errRequired: "это обязательное поле",
       errPasswordMin: "длина пароля - не менее 8 символов",
       errPasswordMatches: "пароль должен содержать цифру",
+      errEmailMatches: "неверный формат",
       title: "Выполняй задания, получи классные призы!",
       authForm: {
         authGoogleText: "Вы можете авторизоваться с помощью Google Account:",

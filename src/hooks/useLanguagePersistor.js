@@ -9,7 +9,7 @@ const useLanguagePersistor = () => {
   };
   const [language, setLanguage] = useState(getLocalStorLanguage());
 
-  // const toggler = () => {
+  // для 2х языков const toggler = () => {
   //   setLanguage((prev) => (prev === "russian" ? "ukrainian" : "russian"));
   // };
   useEffect(() => {

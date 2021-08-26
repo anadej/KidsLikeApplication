@@ -14,6 +14,7 @@ const english = {
       errRequired: "this is mandatory area",
       errPasswordMin: "password must be at least 8 characters",
       errPasswordMatches: "password must contain a number",
+      errEmailMatches: "invalid format",
       title: "Complete tasks, win awesome prizes!",
       authForm: {
         authGoogleText: "You may log in using your Google Account:",
