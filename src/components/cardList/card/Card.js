@@ -1,24 +1,20 @@
+import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import languages from "../../../languages";
+import { data } from "../../../languages/new";
 import { getSelectedDateId } from "../../../redux/planningTasks/planningTasksSelector";
-import {
-  setDaysSingleTaskOperation,
-  toggleTaskOperation,
-} from "../../../redux/tasks/tasksOperations";
+import { setDaysSingleTaskOperation, toggleTaskOperation } from "../../../redux/tasks/tasksOperations";
+import { LanguageContext } from "../../App";
 import TaskAddIcon from "../../taskAddIcon/TaskAddIcon";
 import TaskStatusIcon from "../../taskStatusIcon/TaskStatusIcon";
 import TaskToggle from "../../taskToggle/TaskToggle";
 import { CardItemStyled } from "./CardStyled";
 
-const Card = ({
-  task,
-  currentDateId,
-  selectedDate,
-  previousDay,
-  presentDay,
-}) => {
+const Card = ({ task, currentDateId, selectedDate, previousDay, presentDay }) => {
   const dispatch = useDispatch();
   const location = useLocation().pathname;
+  const { language } = useContext(LanguageContext);
   const selectedDropdownDate = useSelector(getSelectedDateId);
 
   function declOfNum(n, text) {
@@ -67,11 +63,12 @@ const Card = ({
         <img className="card__image" src={task.imageUrl} alt={task.title} />
         <div className="card__footer">
           <div className="card__info">
-            <h3 className="card__taskName">{task.title}</h3>
-            <span className="card__rewardTag">{`${task.reward} ${declOfNum(
-              task.reward,
-              ["балл", "балла", "баллов"]
-            )}`}</span>
+            <h3 className="card__taskName">{languages[language].tasks[task.title]}</h3>
+            <span className="card__rewardTag">{`${task.reward} ${declOfNum(task.reward, [
+              languages[language].tasks["балл"],
+              languages[language].tasks["балла"],
+              languages[language].tasks["баллов"],
+            ])}`}</span>
           </div>
           {location === "/" && presentDay && (
             <TaskToggle
@@ -80,11 +77,7 @@ const Card = ({
               onTaskToggle={onTaskToggle}
             />
           )}
-          {location === "/" && previousDay && (
-            <TaskStatusIcon
-              completionStatus={task.days[selectedDate].isCompleted}
-            />
-          )}
+          {location === "/" && previousDay && <TaskStatusIcon completionStatus={task.days[selectedDate].isCompleted} />}
           {location === "/planning" ? (
             <TaskAddIcon
               task={task}

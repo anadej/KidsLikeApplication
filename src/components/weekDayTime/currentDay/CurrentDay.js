@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import { useLocation } from "react-router";
 import CurrentWeek from "../currentWeek/CurrentWeek";
@@ -6,6 +6,8 @@ import { CurrentDayStyled } from "./CurrentDayStyled";
 import { colors } from "../../../general/styles/colors";
 import { useSelector } from "react-redux";
 import { getStartOfTheWeek } from "../../../redux/additionalInfo/additionalInfoSelectors";
+import languages from "../../../languages";
+import { LanguageContext } from "../../App";
 
 const initialState = {
   width: window.innerWidth,
@@ -15,6 +17,7 @@ const initialState = {
 const CurrentDay = ({ selectedDate }) => {
   const [state, setState] = useState(initialState);
   const location = useLocation();
+  const { language } = useContext(LanguageContext);
 
   const startOfTheWeek = useSelector(getStartOfTheWeek);
 
@@ -25,37 +28,37 @@ const CurrentDay = ({ selectedDate }) => {
     {
       day: "Monday",
       date: +start,
-      russianDay: "Понедельник",
+      russianDay: languages[language].days["Понедельник"],
     },
     {
       day: "Tuesday",
       date: +start + 1,
-      russianDay: "Вторник",
+      russianDay: languages[language].days["Вторник"],
     },
     {
       day: "Wednesday",
       date: +start + 2,
-      russianDay: "Среда",
+      russianDay: languages[language].days["Среда"],
     },
     {
       day: "Thursday",
       date: +start + 3,
-      russianDay: "Четверг",
+      russianDay: languages[language].days["Четверг"],
     },
     {
       day: "Friday",
       date: +start + 4,
-      russianDay: "Пятница",
+      russianDay: languages[language].days["Пятница"],
     },
     {
       day: "Saturday",
       date: +start + 5,
-      russianDay: "Суббота",
+      russianDay: languages[language].days["Суббота"],
     },
     {
       day: "Sunday",
       date: +start + 6,
-      russianDay: "Воскресенье",
+      russianDay: languages[language].days["Воскресенье"],
     },
   ];
 
@@ -89,18 +92,14 @@ const CurrentDay = ({ selectedDate }) => {
         {state.width >= 1280 && <CurrentWeek />}
         {state.width >= 1280 && (
           <div>
-            <span className="current-tasks">Мoи задачи:</span>
-            <span className="current-day">
-              {dateNumber ? newDate : `${todayDay}, ${todayDate}`}
-            </span>
+            <span className="current-tasks">{languages[language].tasks.tasks}</span>
+            <span className="current-day">{dateNumber ? newDate : `${todayDay}, ${todayDate}`}</span>
           </div>
         )}
         {state.width < 1280 && (
           <>
-            <span className="current-tasks">Мoи задачи:</span>
-            <span className="current-day">
-              {dateNumber ? newDate : `${todayDay}, ${todayDate}`}
-            </span>
+            <span className="current-tasks">{languages[language].tasks.tasks}</span>
+            <span className="current-day">{dateNumber ? newDate : `${todayDay}, ${todayDate}`}</span>
           </>
         )}
       </CurrentDayStyled>
